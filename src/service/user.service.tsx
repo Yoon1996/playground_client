@@ -1,10 +1,10 @@
 import axios from 'axios'
-import { env } from '../environment/environment'
+import { IUser } from '../interface/user.interface'
 
-const baseUrl = `${env.hosturl}/url`
-// const baseUrl = `${process.env.REACT_APP_HOST}/url`
+const baseUrl = `${import.meta.env.VITE_APP_HOST}/user`
+// const baseUrl = `${process.env.REACT_APP_HOST}/user`
 
-//url send
+//회원가입
 export const createUser = () => {
-    return axios.post(`${baseUrl}/create`)
+    return axios.post(`${baseUrl}/regist`)
 }

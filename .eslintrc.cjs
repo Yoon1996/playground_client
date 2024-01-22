@@ -20,7 +20,8 @@ module.exports = {
       //   'endOfLine': 'auto'
       // }
       "warn"
-    ]
+    ],
+    "@typescript-eslint/no-explicit-any": "off"
   },
 }
 
