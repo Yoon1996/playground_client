@@ -4,9 +4,10 @@ import { recoilPersist } from 'recoil-persist'
 
 const { persistAtom }: any = recoilPersist()
 
-export const userAtom = atom<ILoggedinUser | null>({
+export const userAtom = atom<ILoggedinUser>({
     key: 'user',
     default: {
+        id: 0,
         name: '',
         email: '',
         birth: '',

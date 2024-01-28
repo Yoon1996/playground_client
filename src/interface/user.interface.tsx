@@ -15,6 +15,7 @@ export interface ILoginUser {
 }
 
 export interface ILoggedinUser {
+    id: number
     email: string
     password?: string
     rePassword?: string
@@ -24,4 +25,11 @@ export interface ILoggedinUser {
     phoneNumber: string
     provider: string
     token: string
+}
+
+export interface IAddProfile {
+    id: number
+    sex: string
+    birth: string
+    phoneNumber: string
 }

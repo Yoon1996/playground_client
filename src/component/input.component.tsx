@@ -1,11 +1,15 @@
+import { read } from "fs"
+
 interface InputProps {
+    readonly?: boolean
     placeholder: string
     type: string
-    value: string
+    value?: string
+    notChangedValue?: string
     change?: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const InputComponent = ({ placeholder, type, value, change }: InputProps) => {
+const InputComponent = ({ placeholder, type, value, change, notChangedValue,readonly }: InputProps) => {
     return (
         <>
             <input
@@ -14,6 +18,8 @@ const InputComponent = ({ placeholder, type, value, change }: InputProps) => {
                 type={type}
                 defaultValue={value}
                 onChange={change}
+                value={notChangedValue}
+                readOnly={readonly}
             />
         </>
     )
