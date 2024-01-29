@@ -6,6 +6,7 @@ import InputComponent from '../component/input.component'
 import SelectComponent from '../component/select.component'
 import { IErrors } from '../interface/error.interface'
 import { IUser } from '../interface/user.interface'
+import { createUser } from '../service/user.service'
 
 const RegisterPage = () => {
     //초기값 설정
@@ -105,7 +106,7 @@ const RegisterPage = () => {
         }
         if (Object.values(data).every((value) => value !== '')) {
             try {
-                const response = await axios.post('http://localhost:3000/user/regist', data)
+                const response = await createUser(data)
                 console.log('response: ', response)
                 alert('회원가입이 완료되었습니다.')
                 navigate('/login/login-page')

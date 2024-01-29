@@ -1,13 +1,14 @@
 import { useGoogleLogin } from '@react-oauth/google'
 import axios from 'axios'
 import { useState } from 'react'
-import { redirect, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import { userAtom } from '../atom/user.atom'
 import ButtonComponent from '../component/button.component'
 import InputComponent from '../component/input.component'
 import { IErrors } from '../interface/error.interface'
 import { ILoginUser } from '../interface/user.interface'
+import { login, socialLogin } from '../service/user.service'
 import { getAccessToken, setAccessToken } from '../util/localstorage'
 // import KakaoLogin from 'react-kakao-login'
 
@@ -34,7 +35,7 @@ const LoginPage = () => {
             password: password,
         }
         try {
-            const result = await axios.post('http://localhost:3000/auth/login', loginData)
+            const result = await login(loginData)
             console.log('result: ', result)
             setAccessToken(result.data.jwt)
             setLoggedIn(result.data)
@@ -78,7 +79,7 @@ const LoginPage = () => {
     const googleLogin = useGoogleLogin({
         onSuccess: (tokenResponse) => {
             console.log('tokenResponse: ', tokenResponse);
-            axios.post('http://localhost:3000/auth/social-login', tokenResponse )
+            socialLogin(tokenResponse)
             .then((res) => {
                 console.log('res: ', res);
                 setAccessToken(res.data.jwt)

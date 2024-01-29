@@ -15,6 +15,8 @@ import LoginTemplate from './template/login.template'
 import MainTemplate from './template/main.template'
 import { getAccessToken } from './util/localstorage'
 import AddProfilePage from './page/add_profile.page'
+import AccountTemplate from './template/account.template'
+import AccountPage from './page/account.page'
 
 //css 초기화
 const GlobalStyle = createGlobalStyle`
@@ -35,9 +37,7 @@ function App() {
                 <GlobalStyle />
                 <BrowserRouter>
                     <Routes>
-                        <Route
-                            path="/"
-                            element={
+                        <Route path="/"element={
                                 <AuthGuardComponent>
                                     <MainTemplate></MainTemplate>
                                 </AuthGuardComponent>
@@ -45,14 +45,17 @@ function App() {
                         ></Route>
                         <Route path="/login" element={<LoginTemplate></LoginTemplate>}>
                             <Route
-                                path="/login/login-page"
+                                path="login-page"
                                 element={<LoginPage></LoginPage>}
                             ></Route>
                             <Route
-                                path="/login/regist-page"
+                                path="regist-page"
                                 element={<RegisterPage></RegisterPage>}
                             ></Route>
-                            <Route path='/login/add_profile' element={<AddProfilePage></AddProfilePage>}></Route>
+                            <Route path='add_profile' element={<AddProfilePage></AddProfilePage>}></Route>
+                        </Route>
+                        <Route path="/account" element={<AccountTemplate></AccountTemplate>}>
+                            <Route path='profile' element={<AccountPage></AccountPage>}></Route>
                         </Route>
                     </Routes>
                 </BrowserRouter>
