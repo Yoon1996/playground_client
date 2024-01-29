@@ -9,14 +9,14 @@ import './App.css'
 import { userAtom } from './atom/user.atom'
 import AuthGuardComponent from './component/auth_guard_component'
 import './index.css'
+import AddProfilePage from './page/add_profile.page'
 import LoginPage from './page/login.page'
+import ProfilePage from './page/profile.page'
 import RegisterPage from './page/register.page'
+import AccountTemplate from './template/account.template'
 import LoginTemplate from './template/login.template'
 import MainTemplate from './template/main.template'
 import { getAccessToken } from './util/localstorage'
-import AddProfilePage from './page/add_profile.page'
-import AccountTemplate from './template/account.template'
-import AccountPage from './page/account.page'
 
 //css 초기화
 const GlobalStyle = createGlobalStyle`
@@ -55,7 +55,7 @@ function App() {
                             <Route path='add_profile' element={<AddProfilePage></AddProfilePage>}></Route>
                         </Route>
                         <Route path="/account" element={<AccountTemplate></AccountTemplate>}>
-                            <Route path='profile' element={<AccountPage></AccountPage>}></Route>
+                            <Route path='profile' element={<ProfilePage></ProfilePage>}></Route>
                         </Route>
                     </Routes>
                 </BrowserRouter>
