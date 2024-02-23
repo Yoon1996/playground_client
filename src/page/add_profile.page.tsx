@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import ButtonComponent from '../component/button.component'
 import InputComponent from '../component/input.component'
 import SelectComponent from '../component/select.component'
-import ButtonComponent from '../component/button.component'
 import { IErrors } from '../interface/error.interface'
-import { useRecoilValue } from 'recoil'
-import { userAtom } from '../atom/user.atom'
-import axios from 'axios'
-import { IAddProfile, IUser } from '../interface/user.interface'
-import { useNavigate } from 'react-router-dom'
+import { IAddProfile } from '../interface/user.interface'
+import { addProfile } from '../service/user.service'
 
 const AddProfilePage = () => {
-    const user = useRecoilValue(userAtom)
     const navigate = useNavigate()
     //초기값 설정
     const [sex, setSex] = useState<string>('')
@@ -53,14 +50,14 @@ const AddProfilePage = () => {
 
     const updateProfile = async () => {
         const profileData:IAddProfile = {
-            id: user.id,
+            id: 12,
             sex: sex,
             birth: birth,
             phoneNumber: phoneNumber
         }
         try {
                 if(birthError.birth === null && phoneNumber){
-                const result = await axios.put('http://localhost:3000/user/add-profile', profileData)
+                const result = await addProfile(profileData)
                 console.log('result: ', result);
                 navigate('/')
                 }
@@ -77,7 +74,7 @@ const AddProfilePage = () => {
                     <div className="flex flex-col gap-2">
                         <div>이메일</div>
                         <InputComponent
-                            notChangedValue={user?.email}
+                            notChangedValue={'s'}
                             type="text"
                             placeholder="이메일을 입력해주세요."
                             readonly={true}
@@ -88,7 +85,7 @@ const AddProfilePage = () => {
                     <div className="flex flex-col gap-2">
                         <div>이름</div>
                         <InputComponent
-                            notChangedValue={user?.name}
+                            notChangedValue={'s'}
                             type="text"
                             placeholder="이름을 입력해주세요."
                             readonly={true}

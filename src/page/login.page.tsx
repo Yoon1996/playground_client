@@ -1,34 +1,35 @@
 import { useGoogleLogin } from '@react-oauth/google'
-import axios from 'axios'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useRecoilState } from 'recoil'
-import { userAtom } from '../atom/user.atom'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { loginStateAtom, userInfoAtom } from '../atom/user.atom'
 import ButtonComponent from '../component/button.component'
 import InputComponent from '../component/input.component'
 import { IErrors } from '../interface/error.interface'
 import { ILoginUser } from '../interface/user.interface'
 import { login, socialLogin } from '../service/user.service'
-import { getAccessToken, setAccessToken } from '../util/localstorage'
 // import KakaoLogin from 'react-kakao-login'
 
 const LoginPage = () => {
     //초기값 설정
     const [email, setEmail] = useState<string>('')
+    const navigate = useNavigate()
     const [password, setPassword] = useState<string>('')
     const [loginError, setLoginError] = useState<IErrors>({})
-    const navigate = useNavigate()
-    const [loggedIn, setLoggedIn] = useRecoilState(userAtom)
-
+    const setUserInfo = useSetRecoilState(userInfoAtom)
+    const setLoginState = useSetRecoilState(loginStateAtom)
+    const userInfo = useRecoilValue(userInfoAtom)
+    const loginState = useRecoilValue(loginStateAtom)
+    
     const emailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newEmail = event.target.value
         setEmail(newEmail)
     }
-
+    
     const pwChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value)
     }
-
+    
     const loginHandler = async () => {
         const loginData: ILoginUser = {
             email: email,
@@ -36,11 +37,9 @@ const LoginPage = () => {
         }
         try {
             const result = await login(loginData)
-            console.log('result: ', result)
-            setAccessToken(result.data.jwt)
-            setLoggedIn(result.data)
-            const accessToken = getAccessToken()
-            axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
+            console.log('result: ', result);
+            setUserInfo(result.data)
+            setLoginState({state: true})
             navigate('/')
         } catch (error: any) {
             console.log('error: ', error)
@@ -52,6 +51,30 @@ const LoginPage = () => {
             }
         }
     }
+
+    const googleLogin = useGoogleLogin({
+        onSuccess: (tokenResponse) => {
+            console.log('tokenResponse: ', tokenResponse);
+            socialLogin(tokenResponse)
+            .then((res) => {
+                console.log('res: ', res);
+                if(res.data.birth === null){
+                    navigate('/login/add_profile')
+                } else {
+                    navigate('/')
+                }
+            })
+            .catch((err) => {
+                console.log('err: ', err);
+
+            })
+        },
+        onError: (errorResponse) => {
+          console.log("errorResponse: ", errorResponse);
+        },
+        ux_mode: "popup",
+        flow: "auth-code",
+      });
 
     //카카오 로그인(카카오 이메일 가져오기 불가)
     // const kakaoClientId = '023830c29b998f688a6ac45d285dc358'
@@ -76,33 +99,6 @@ const LoginPage = () => {
     //     console.log('code: ', code)
     //     window.location.href = KAKAO_AUTH_URL
 
-    const googleLogin = useGoogleLogin({
-        onSuccess: (tokenResponse) => {
-            console.log('tokenResponse: ', tokenResponse);
-            socialLogin(tokenResponse)
-            .then((res) => {
-                console.log('res: ', res);
-                setAccessToken(res.data.jwt)
-                setLoggedIn(res.data)
-                const accessToken = getAccessToken()
-                axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
-                if(res.data.birth === null){
-                    navigate('/login/add_profile')
-                } else {
-                    navigate('/')
-                }
-            })
-            .catch((err) => {
-                console.log('err: ', err);
-
-            })
-        },
-        onError: (errorResponse) => {
-          console.log("errorResponse: ", errorResponse);
-        },
-        ux_mode: "popup",
-        flow: "auth-code",
-      });
 
     return (
         <>
@@ -137,18 +133,6 @@ const LoginPage = () => {
                         </div>
                     </div>
                     <ButtonComponent ment='구글로그인' click={() => googleLogin()}></ButtonComponent>
-                    {/* <GoogleLogin
-                        onSuccess={(credentialResponse) => {
-                            console.log('credentialResponse: ', credentialResponse)
-                            // const googleData = {
-                            //     credential: credentialResponsed.credential,
-                            // }
-                            axios.get('http://localhost:3000/auth/redirect')
-                        }}
-                        onError={() => {
-                            console.log('Login Failed')
-                        }}
-                    /> */}
                     {/* <div className="cursor-pointer" onClick={kakaoLoginHandler}>
                         <KakaoLogin
                             token={kakaoClientId}

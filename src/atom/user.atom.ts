@@ -1,21 +1,37 @@
+import axios from 'axios'
+import { set } from 'date-fns'
 import { atom } from 'recoil'
-import { ILoggedinUser } from '../interface/user.interface'
-import { recoilPersist } from 'recoil-persist'
+import { clearAccessToken, setAccessToken } from '../util/localstorage.util'
 
-const { persistAtom }: any = recoilPersist()
+const savedValue = localStorage.getItem('accessToken')
 
-export const userAtom = atom<ILoggedinUser>({
-    key: 'user',
-    default: {
-        id: 0,
-        name: '',
-        email: '',
-        birth: '',
-        sex: '',
-        phoneNumber: '',
-        provider: '',
-        token: '',
-    },
-    effects_UNSTABLE: [persistAtom],
-    // default: null,
+export const loginStateAtom = atom<any>({
+    key: 'loginState',
+    default: { state: false },
+    effects: [
+        ({ onSet, setSelf }) => {
+            if (!savedValue || savedValue === undefined) setSelf({ state: false })
+            if (savedValue !== 'undefined') setSelf({ state: true })
+        }
+    ]
+})
+
+export const userInfoAtom = atom<any>({
+    key: 'userInfo',
+    default: {},
+    effects: [
+        ({ onSet, setSelf }) => {
+            if (savedValue === 'undefined') localStorage.clear()
+            onSet((newValue, _, isReset) => {
+                if (isReset) {
+                    localStorage.clear()
+                    axios.defaults.headers.common['Authorization'] = null
+                } else {
+                    localStorage.setItem('accessToken', newValue.jwt)
+                    axios.defaults.headers.common['Authorization'] = `Bearer ${newValue.jwt}`;
+                    setSelf({ ...newValue })
+                }
+            })
+        }
+    ]
 })

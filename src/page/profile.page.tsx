@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
-import ButtonComponent from '../component/button.component'
+import { useState } from 'react'
 import { useRecoilValue } from 'recoil'
-import { userAtom } from '../atom/user.atom'
+import { userInfoAtom } from '../atom/user.atom'
+import ButtonComponent from '../component/button.component'
 import Modal from '../component/modal.component'
 
 const ProfilePage = () => {
-  const user = useRecoilValue(userAtom)
+  const user = useRecoilValue(userInfoAtom)
+  console.log('user: ', user);
   const date = new Date(user.birth)
   const myBirth = date.getFullYear() + '년 ' + date.getMonth() + '월 ' + date.getDay() + '일'
 
@@ -39,7 +40,7 @@ const ProfilePage = () => {
     <div className='text-28 font-bold'>PLAYGROUND 기본 설정</div>
     <div className='flex flex-col gap-5 py-5'>
       <div className='flex flex-col gap-1'>
-      <div>윤성준님의 계정</div>
+      <div>{user.name}님의 계정</div>
       <div>{user.email}</div>
       </div>
       <div className='flex flex-row items-center gap-5'>
