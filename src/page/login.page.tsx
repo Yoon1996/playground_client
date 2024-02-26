@@ -2,7 +2,7 @@ import { useGoogleLogin } from '@react-oauth/google'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
-import { loginStateAtom, userInfoAtom } from '../atom/user.atom'
+import { loginStateAtom, updateUserInfo, userInfoAtom } from '../atom/user.atom'
 import ButtonComponent from '../component/button.component'
 import InputComponent from '../component/input.component'
 import { IErrors } from '../interface/error.interface'
@@ -18,8 +18,7 @@ const LoginPage = () => {
     const [loginError, setLoginError] = useState<IErrors>({})
     const setUserInfo = useSetRecoilState(userInfoAtom)
     const setLoginState = useSetRecoilState(loginStateAtom)
-    const userInfo = useRecoilValue(userInfoAtom)
-    const loginState = useRecoilValue(loginStateAtom)
+    const setUpdateUserInfo = useSetRecoilState(updateUserInfo)
     
     const emailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newEmail = event.target.value
@@ -39,6 +38,7 @@ const LoginPage = () => {
             const result = await login(loginData)
             console.log('result: ', result);
             setUserInfo(result.data)
+            setUpdateUserInfo(result.data)
             setLoginState({state: true})
             navigate('/')
         } catch (error: any) {

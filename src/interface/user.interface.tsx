@@ -37,3 +37,9 @@ export interface IUpdateProfile {
     birth?: string
     password?: string
 }
+
+export interface IChangePw {
+    oldPassword?: string
+    password?: string
+    newPassword?: string
+}

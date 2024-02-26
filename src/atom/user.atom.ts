@@ -1,7 +1,5 @@
 import axios from 'axios'
-import { set } from 'date-fns'
 import { atom } from 'recoil'
-import { clearAccessToken, setAccessToken } from '../util/localstorage.util'
 
 const savedValue = localStorage.getItem('accessToken')
 
@@ -34,4 +32,10 @@ export const userInfoAtom = atom<any>({
             })
         }
     ]
+})
+
+export const updateUserInfo = atom<any>({
+    key: 'updateUserInfo',
+    default: {},
+    effects: []
 })

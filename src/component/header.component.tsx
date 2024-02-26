@@ -6,10 +6,10 @@ import { loginStateAtom, userInfoAtom } from '../atom/user.atom'
 const HeaderComponent = () => {
     const navigate = useNavigate()
     const setLoginState = useSetRecoilState(loginStateAtom)
-    const userInfo = useResetRecoilState(userInfoAtom)
+    const resetUserInfo = useResetRecoilState(userInfoAtom)
     const logoutHandler = () => {
       setLoginState({state: false})
-      userInfo()
+      resetUserInfo()
       navigate('/')
     }
   return (

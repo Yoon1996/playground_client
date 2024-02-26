@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { IAddProfile, ILoginUser, IUpdateProfile, IUser } from '../interface/user.interface'
+import { IAddProfile, IChangePw, ILoginUser, IUpdateProfile, IUser } from '../interface/user.interface'
 
 const baseUrl = `${import.meta.env.VITE_APP_HOST}`
 // const baseUrl = `${process.env.REACT_APP_HOST}/user`
@@ -25,6 +25,16 @@ export const addProfile = (body:IAddProfile) => {
 }
 
 //연락처 수정
-export const changeProfile = (body:IUpdateProfile, id:number) => {
-    return axios.put(`${baseUrl}/user/change-profile/${id}`, body)
+export const changePhoneNumber = (body:IUpdateProfile, id:number) => {
+    return axios.put(`${baseUrl}/user/change-phoneNumber/${id}`, body)
+}
+
+//생년월일 수정
+export const changeBirth = (body:IUpdateProfile, id:number) => {
+    return axios.put(`${baseUrl}/user/change-birth/${id}`, body)
+}
+
+//비밀번호 변경
+export const changePw = (body:IChangePw, id:number) => {
+    return axios.put(`${baseUrl}/user/change-pw/${id}`, body)
 }

@@ -1,14 +1,14 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
-import { userInfoAtom } from '../atom/user.atom'
+import { updateUserInfo, userInfoAtom } from '../atom/user.atom'
 import ButtonComponent from '../component/button.component'
 import Modal from '../component/modal.component'
 
 const ProfilePage = () => {
-  const user = useRecoilValue(userInfoAtom)
-  console.log('user: ', user);
+  const user = useRecoilValue(updateUserInfo)
   const date = new Date(user.birth)
-  const myBirth = date.getFullYear() + '년 ' + date.getMonth() + '월 ' + date.getDay() + '일'
+  const month = date.getMonth() + 1
+  const myBirth = date.getFullYear() + '년 ' + month + '월 ' + date.getDate() + '일'
 
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const [title, setTitle] = useState<String>('')
