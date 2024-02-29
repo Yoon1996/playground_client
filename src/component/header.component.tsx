@@ -13,7 +13,7 @@ const HeaderComponent = () => {
       navigate('/')
     }
   return (
-    <div className='flex justify-between items-center px-5 h-24 mb-5'>
+    <div className='flex justify-between items-center w-auto h-24 mb-5'>
         <div className='font-bold text-28 cursor-pointer' onClick={() => navigate('/')}>playground</div>
         <div className='w-2/4'>
         <SearchComponent></SearchComponent>

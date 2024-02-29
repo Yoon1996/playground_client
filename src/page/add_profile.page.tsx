@@ -6,9 +6,12 @@ import SelectComponent from '../component/select.component'
 import { IErrors } from '../interface/error.interface'
 import { IAddProfile } from '../interface/user.interface'
 import { addProfile } from '../service/user.service'
+import { useRecoilValue } from 'recoil'
+import { userInfoAtom } from '../atom/user.atom'
 
 const AddProfilePage = () => {
     const navigate = useNavigate()
+    const userInfo = useRecoilValue(userInfoAtom)
     //초기값 설정
     const [sex, setSex] = useState<string>('')
     const [selectedSex, setSelectedSex] = useState<number>(1)
@@ -50,7 +53,7 @@ const AddProfilePage = () => {
 
     const updateProfile = async () => {
         const profileData:IAddProfile = {
-            id: 12,
+            id: userInfo.id,
             sex: sex,
             birth: birth,
             phoneNumber: phoneNumber
@@ -74,7 +77,7 @@ const AddProfilePage = () => {
                     <div className="flex flex-col gap-2">
                         <div>이메일</div>
                         <InputComponent
-                            notChangedValue={'s'}
+                            notChangedValue={userInfo.email}
                             type="text"
                             placeholder="이메일을 입력해주세요."
                             readonly={true}
@@ -85,7 +88,7 @@ const AddProfilePage = () => {
                     <div className="flex flex-col gap-2">
                         <div>이름</div>
                         <InputComponent
-                            notChangedValue={'s'}
+                            notChangedValue={userInfo.name}
                             type="text"
                             placeholder="이름을 입력해주세요."
                             readonly={true}
@@ -109,7 +112,7 @@ const AddProfilePage = () => {
                                 value={birth}
                                 change={birthChange}
                                 type="text"
-                                placeholder="19961025"
+                                placeholder="예}19961025"
                             ></InputComponent>
                         </div>
                         <div className="text-error">

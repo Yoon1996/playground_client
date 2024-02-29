@@ -1,9 +1,5 @@
-import { useRecoilValue } from 'recoil'
-import CalendarComponent from '../component/calendar.component'
+import CategoryListComponent from '../component/category/category_list.component'
 import HeaderComponent from '../component/header.component'
-import WeatherComponent from '../component/weather.component'
-import { userInfoAtom } from '../atom/user.atom'
-import { useEffect } from 'react'
 
 
 const MainPage = () => {
@@ -11,8 +7,12 @@ const MainPage = () => {
   return (
     <>
     <HeaderComponent></HeaderComponent>
-    <CalendarComponent></CalendarComponent>
-    <WeatherComponent></WeatherComponent>
+    <div className='flex gap-4 flex-col'>
+    <div className='text-20 font-semibold text-primary-45'>체육 시설 예약하기</div>
+    <CategoryListComponent></CategoryListComponent>
+    </div>
+    {/* <CalendarComponent></CalendarComponent>
+    <WeatherComponent></WeatherComponent> */}
     </>
   )
 }

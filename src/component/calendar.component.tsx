@@ -43,14 +43,14 @@ const CalendarComponent = () => {
   },[handleDateClick])
   return(
         <>
-        <div className="w-full flex flex-col gap-3 justify-center items-center">
-            <div className="flex w-full justify-between">
+        <div className="w-full flex flex-col gap-4 justify-center items-center">
+            <div className="flex w-full justify-between items-center">
                 <div onClick={() => setDate(new Date(date.getFullYear(), date.getMonth(), date.getDate() - 7))}>
-                  <img src="../public/left-arrow.png" alt="" />
+                  <img className='cursor-pointer' src="../public/left-arrow.png" alt="" />
                 </div>
                 <div>{date.getFullYear()}년 {date.toLocaleString('default', { month: 'long' })}</div>
                 <div onClick={() => setDate(new Date(date.getFullYear(), date.getMonth(), date.getDate() + 7))}>
-                  <img src="../public/right-arrow.png" alt="" />
+                  <img className='cursor-pointer' src="../public/right-arrow.png" alt="" />
                 </div>
             </div>
             <div className="flex w-full justify-between gap-6">

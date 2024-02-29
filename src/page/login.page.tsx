@@ -52,12 +52,22 @@ const LoginPage = () => {
         }
     }
 
+    //엔터 입력시 로그인
+    const pressEnterLogin = (e: React.KeyboardEvent) => {
+        if(e.key === 'Enter'){
+            loginHandler()
+        }
+    }
+
     const googleLogin = useGoogleLogin({
         onSuccess: (tokenResponse) => {
             console.log('tokenResponse: ', tokenResponse);
             socialLogin(tokenResponse)
             .then((res) => {
                 console.log('res: ', res);
+                setUserInfo(res.data)
+                setUpdateUserInfo(res.data)
+                setLoginState({state: true})
                 if(res.data.birth === null){
                     navigate('/login/add_profile')
                 } else {
@@ -116,6 +126,7 @@ const LoginPage = () => {
                         value={password}
                         type="text"
                         placeholder="비밀번호"
+                        press={pressEnterLogin}
                     ></InputComponent>
                     <div className="text-error">
                         {loginError?.login ? <p>{loginError?.login}</p> : ''}

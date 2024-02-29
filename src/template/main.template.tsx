@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 const MainTemplate = () => {
     return (
         <>
-        <div className='w-4/5 m-auto'>
+        <div className='max-w-screen-lg m-auto'>
         <Outlet></Outlet>
         </div>
         </>

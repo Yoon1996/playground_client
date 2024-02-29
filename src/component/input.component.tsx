@@ -7,9 +7,10 @@ interface InputProps {
     value?: string
     notChangedValue?: string
     change?: (event: React.ChangeEvent<HTMLInputElement>) => void
+    press?: (event: React.KeyboardEvent<HTMLInputElement>) => void
 }
 
-const InputComponent = ({ placeholder, type, value, change, notChangedValue,readonly }: InputProps) => {
+const InputComponent = ({ placeholder, type, value, change, press, notChangedValue,readonly }: InputProps) => {
     return (
         <>
             <input
@@ -20,6 +21,7 @@ const InputComponent = ({ placeholder, type, value, change, notChangedValue,read
                 onChange={change}
                 value={notChangedValue}
                 readOnly={readonly}
+                onKeyDown={press}
             />
         </>
     )
