@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil'
-import { loginStateAtom, updateUserInfo, userInfoAtom } from '../atom/user.atom'
-import { IErrors } from '../interface/error.interface'
-import { changeBirth, changePhoneNumber, changePw } from '../service/user.service'
-import ButtonComponent from './button.component'
-import InputComponent from './input.component'
-import { IChangePw } from '../interface/user.interface'
+import { loginStateAtom, updateUserInfo, userInfoAtom } from '../../atom/user.atom'
+import { IErrors } from '../../interface/error.interface'
+import { changeBirth, changePhoneNumber, changePw } from '../../service/user.service'
+import ButtonComponent from '../button.component'
+import InputComponent from '../input.component'
+import { IChangePw } from '../../interface/user.interface'
 
 
 interface IModal {
@@ -125,14 +125,14 @@ const Modal = ({title, cancel}:IModal) => {
     <>
     <div className='w-full h-full flex justify-center items-center bg-primary-a6 bg-opacity-80 tra absolute'>
     {title === 'birth' ? <div className='w-96 h-44 p-5 flex flex-col justify-center items-center gap-2 bg-white rounded-md shadow-md relative'>
-            <img className='w-6 h-6 absolute right-2 top-2 cursor-pointer' src="../public/close.png" onClick={cancel} alt="" />
+            <img className='w-6 h-6 absolute right-2 top-2 cursor-pointer' src="../public/icon/close.png" onClick={cancel} alt="" />
             <div className='text-20'>생년월일 수정</div>
             <InputComponent change={birthChange} placeholder='예)19961025' type='text'></InputComponent>
             {birthError?.birth ? <div className='text-error'>{birthError.birth}</div> : ''}
             <ButtonComponent ment='저장하기' click={editBirth}></ButtonComponent>
         </div> : ""}
         {title === 'phoneNumber' ? <div className='w-96 h-44 p-5 flex flex-col justify-center items-center gap-2 bg-white rounded-md shadow-md relative'>
-        <img className='w-6 h-6 absolute right-2 top-2 cursor-pointer' src="../public/close.png" onClick={cancel} alt="" />
+        <img className='w-6 h-6 absolute right-2 top-2 cursor-pointer' src="../public/icon/close.png" onClick={cancel} alt="" />
             <div className='text-20'>연락처 수정</div>
             <InputComponent change={numberChange} placeholder='예)01051865289' type='text'></InputComponent>
             {phoneNumberError?.number ? <div className='text-error'>{phoneNumberError.number}</div> : ''}
@@ -140,7 +140,7 @@ const Modal = ({title, cancel}:IModal) => {
         </div>:''}
         
         {title === 'password' ? <div className='w-96 h-72 p-5 flex flex-col justify-center items-center gap-2 bg-white rounded-md shadow-md relative'>
-        <img className='w-6 h-6 absolute right-2 top-2 cursor-pointer' src="../public/close.png" onClick={cancel} alt="" />
+        <img className='w-6 h-6 absolute right-2 top-2 cursor-pointer' src="../public/icon/close.png" onClick={cancel} alt="" />
             <div className='flex flex-col gap-4'>
             <div className='text-20'>비밀번호 변경</div>
             <div className='flex justify-between items-center gap-7'>

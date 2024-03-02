@@ -20,13 +20,13 @@ const HeaderComponent = () => {
         </div>
         <div className='cursor-pointer flex flex-row items-center gap-2'>
         <div>
-          <img className='size-8' src="../public/calendar.png" alt="" />
+          <img className='size-8' src="../public/icon/calendar.png" alt="" />
         </div>
         <div className='cursor-pointer' onClick={() => navigate('/account/profile')}>
-          <img className='size-8' src="../public/profile.png" alt="" />
+          <img className='size-8' src="../public/icon/profile.png" alt="" />
         </div>
         <div>
-          <img className='cursor-pointer' onClick={logoutHandler} src="../public/logout.png" alt="로그아웃" />
+          <img className='cursor-pointer' onClick={logoutHandler} src="../public/icon/logout.png" alt="로그아웃" />
         </div>
 
         </div>

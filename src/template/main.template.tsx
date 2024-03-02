@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom'
+import CategoryModal from '../component/category/category_modal'
 
 const MainTemplate = () => {
     return (

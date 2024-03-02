@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import { updateUserInfo, userInfoAtom } from '../atom/user.atom'
 import ButtonComponent from '../component/button.component'
-import Modal from '../component/modal.component'
+import Modal from '../component/modal/modal.component'
 
 const ProfilePage = () => {
   const user = useRecoilValue(updateUserInfo)

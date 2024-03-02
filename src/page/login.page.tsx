@@ -1,7 +1,7 @@
 import { useGoogleLogin } from '@react-oauth/google'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { useSetRecoilState } from 'recoil'
 import { loginStateAtom, updateUserInfo, userInfoAtom } from '../atom/user.atom'
 import ButtonComponent from '../component/button.component'
 import InputComponent from '../component/input.component'
