@@ -1,36 +1,37 @@
-import { useEffect } from 'react'
-import CategoryListComponent from '../component/category/category_list.component'
-import GroundListComponent from '../component/ground/ground_list.component'
-import HeaderComponent from '../component/header.component'
-import { showGymList } from '../service/gym.service'
-import { useSetRecoilState } from 'recoil'
-import { gymListAtom } from '../atom/gym.atom'
-
+import { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import { gymListAtom } from '../atom/gym.atom';
+import CategoryListComponent from '../component/category/category_list.component';
+import GroundListComponent from '../component/ground/ground_list.component';
+import HeaderComponent from '../component/header.component';
+import { showPageGymList } from '../service/gym.service';
 
 const MainPage = () => {
+    const setGymList = useSetRecoilState(gymListAtom);
+    const [searchParams] = useSearchParams();
+    const page = searchParams.get('page');
 
-  const setGymList = useSetRecoilState(gymListAtom)
+    useEffect(() => {
+        showPageGymList(page)
+            .then((res) => {
+                console.log('res: ', res);
+                setGymList(res.data);
+            })
+            .catch((err) => {
+                console.log('err: ', err);
+            });
+    }, []);
 
-  useEffect(() => {
-    showGymList()
-    .then((res) => {
-      console.log('res: ', res);
-      setGymList(res.data)
-    })
-    .catch((err) => {
-      console.log('err: ', err);
-    })
-  })
+    return (
+        <>
+            <HeaderComponent></HeaderComponent>
+            <div className="flex gap-4 flex-col">
+                <CategoryListComponent></CategoryListComponent>
+                <GroundListComponent></GroundListComponent>
+            </div>
+        </>
+    );
+};
 
-  return (
-    <>
-    <HeaderComponent></HeaderComponent>
-    <div className='flex gap-4 flex-col'>
-    <CategoryListComponent></CategoryListComponent>
-    <GroundListComponent></GroundListComponent>
-    </div>
-    </>
-  )
-}
-
-export default MainPage
+export default MainPage;

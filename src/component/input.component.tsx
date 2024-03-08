@@ -1,16 +1,16 @@
-import { read } from "fs"
+import { read } from 'fs';
 
 interface InputProps {
-    readonly?: boolean
-    placeholder: string
-    type: string
-    value?: string
-    notChangedValue?: string
-    change?: (event: React.ChangeEvent<HTMLInputElement>) => void
-    press?: (event: React.KeyboardEvent<HTMLInputElement>) => void
+    readonly?: boolean;
+    placeholder: string;
+    type: string;
+    value?: string;
+    notChangedValue?: string;
+    change?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    press?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-const InputComponent = ({ placeholder, type, value, change, press, notChangedValue,readonly }: InputProps) => {
+const InputComponent = ({ placeholder, type, value, change, press, notChangedValue, readonly }: InputProps) => {
     return (
         <>
             <input
@@ -24,7 +24,7 @@ const InputComponent = ({ placeholder, type, value, change, press, notChangedVal
                 onKeyDown={press}
             />
         </>
-    )
-}
+    );
+};
 
-export default InputComponent
+export default InputComponent;
