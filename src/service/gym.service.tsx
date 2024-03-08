@@ -8,6 +8,11 @@ export const showGymList = () => {
     return axios.get(`${baseUrl}/gym/all`);
 };
 
-export const showPageGymList = (offset: any) => {
-    return axios.get(`${baseUrl}/gym/gyms?page=${offset}`);
+export const getGymsLength = () => {
+    return axios.get(`${baseUrl}/gym/getGymsLength`);
+};
+
+//페이지네이트 해서 리스트 보여주기
+export const showPageGymList = (page: number) => {
+    return axios.get(`${baseUrl}/gym/gyms?page=${page}`);
 };

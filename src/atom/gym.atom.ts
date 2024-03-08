@@ -14,16 +14,5 @@ export const gymListAtom = atom<any>({
 export const pageAtom = atom<any>({
     key: 'pageNum',
     default: 1,
-    effects: [
-        ({ onSet, setSelf }) => {
-            onSet((newValue) => {
-                console.log(newValue);
-            });
-        },
-    ],
-});
-
-export const gymOffsetAtom = atom<any>({
-    key: 'offset',
-    default: 1,
+    effects: [],
 });
