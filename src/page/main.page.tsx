@@ -1,47 +1,65 @@
 import { useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
-import { gymListAtom, gymListLengthAtom } from '../atom/gym.atom';
-import CategoryListComponent from '../component/category/category_list.component';
+import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { filterParamsAtom, gymListAtom, gymListLengthAtom } from '../atom/gym.atom';
 import GroundListComponent from '../component/ground/ground_list.component';
 import HeaderComponent from '../component/header.component';
-import { getGymsLength, showPageGymList } from '../service/gym.service';
+import { IFilterModel } from '../interface/filter.interface';
+import { showPageGymList } from '../service/gym.service';
+import CategoryListComponent from '../component/category/category_list.component';
 
 const MainPage = () => {
     const setGymList = useSetRecoilState(gymListAtom);
     const setGymListLength = useSetRecoilState(gymListLengthAtom);
-    const [searchParams] = useSearchParams();
-    const page = Number(searchParams.get('page'));
+    const setFilterParams = useSetRecoilState(filterParamsAtom);
+    const filterParams = useRecoilValue(filterParamsAtom);
 
-    const getGymsLengthF = () => {
-        getGymsLength()
-            .then((res) => {
-                console.log('res: ', res);
-                setGymListLength(res.data);
-            })
-            .catch((err) => {
-                console.log('err: ', err);
-            });
-    };
-    const paginateF = (pageNum: number) => {
-        showPageGymList(pageNum)
-            .then((res) => {
-                console.log('res: ', res);
-                setGymList(res.data);
-            })
-            .catch((err) => {
-                console.log('err: ', err);
-            });
-    };
+    const [searchParams] = useSearchParams();
+    const page = searchParams.get('page');
+    const search = searchParams.get('search');
+    const region = searchParams.get('region');
+    const sportsType = searchParams.get('sportsType');
+    const parking = searchParams.get('parking');
+    const navigate = useNavigate();
     useEffect(() => {
-        if (page === 0) {
-            paginateF(1);
-            getGymsLengthF();
-        } else {
-            paginateF(page);
-            getGymsLengthF();
-        }
+        console.log('search: ', searchParams);
+        reLoadUrl();
     }, []);
+
+    const reLoadUrl = () => {
+        const searchParams: IFilterModel = {
+            page: page,
+        };
+        const firstSearchParams: IFilterModel = {
+            page: '1',
+        };
+        if (search) {
+            searchParams.search = search;
+            firstSearchParams.search = search;
+        }
+
+        if (searchParams.page === null) {
+            showPageGymList(firstSearchParams)
+                .then((res) => {
+                    // console.log('res: ', res);
+                    setGymList(res.data.list);
+                    setGymListLength(res.data.length);
+                })
+                .catch((err) => {
+                    console.log('err: ', err);
+                });
+        } else {
+            showPageGymList(searchParams)
+                .then((res) => {
+                    // console.log('res: ', res);
+                    setGymList(res.data.list);
+                    setGymListLength(res.data.length);
+                })
+                .catch((err) => {
+                    console.log('err: ', err);
+                });
+        }
+    };
 
     return (
         <>

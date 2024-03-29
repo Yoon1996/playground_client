@@ -1,6 +1,7 @@
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { gymListAtom, pageAtom } from '../atom/gym.atom';
+import { IFilterModel } from '../interface/filter.interface';
 import { showPageGymList } from '../service/gym.service';
 
 interface paginationProps {
@@ -11,16 +12,17 @@ interface paginationProps {
     limit: number; // 보여질 페이지네이션
 }
 
-const PaginationComponent = ({ postsPerPage, paginate, limit, totalPostsLength }: paginationProps) => {
+const PaginationComponent = ({ postsPerPage, paginate, limit, totalPostsLength, page }: paginationProps) => {
     const setGymList = useSetRecoilState(gymListAtom);
     const setCurrentPage = useSetRecoilState(pageAtom);
     const navigate = useNavigate();
-    const [searchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams({});
     const currentPage = Number(searchParams.get('page'));
+    const search = searchParams.get('search');
     const numPages = Math.ceil(totalPostsLength / postsPerPage);
     const basePage = Math.floor((currentPage - 1) / limit);
-    let start = basePage * limit + 1;
-    let end = start + limit;
+    let start = page - (page % limit) + 1;
+    let end = page - (page % limit) + 5;
 
     if (end > numPages) {
         end = numPages;
@@ -29,26 +31,24 @@ const PaginationComponent = ({ postsPerPage, paginate, limit, totalPostsLength }
         start = 1;
     }
     const pageList = [];
-    if (currentPage === 0) {
-        for (let i = 1; i <= 5; i++) {
-            pageList.push(i);
-        }
-    } else {
-        for (let i = start; i <= end; i++) {
-            pageList.push(i);
-        }
+    for (let i = start; i <= end; i++) {
+        pageList.push(i);
     }
 
     const changePageNumber = (page: number) => {
         setCurrentPage(page);
+        const params: IFilterModel = {
+            page: String(page),
+        };
+        if (search) params.search = search;
         navigate({
             pathname: '/gyms',
-            search: `?page=${page}`,
+            search: `?${createSearchParams(params)}`,
         });
-        showPageGymList(page)
+        showPageGymList(params)
             .then((res) => {
                 console.log('res: ', res);
-                setGymList(res.data);
+                setGymList(res.data.list);
             })
             .catch((err) => {
                 console.log('err: ', err);

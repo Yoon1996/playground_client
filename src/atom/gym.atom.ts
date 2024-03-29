@@ -16,3 +16,15 @@ export const pageAtom = atom<any>({
     default: 1,
     effects: [],
 });
+
+export const filterParamsAtom = atom<any>({
+    key: 'filterParams',
+    default: {},
+    effects: [
+        ({ onSet, setSelf }) => {
+            onSet((newValue, _, isReset) => {
+                setSelf({ ..._, newValue });
+            });
+        },
+    ],
+});
