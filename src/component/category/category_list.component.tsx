@@ -5,7 +5,7 @@ import { gymListAtom, gymListLengthAtom } from '../../atom/gym.atom';
 import { showCategoryList } from '../../service/category.service';
 import { showPageGymList } from '../../service/gym.service';
 import CategoryButtonComponent from './category_button.component';
-import ButtonComponent from '../button.component';
+import MapModalComponent from '../modal/map_modal.component';
 
 const CategoryListComponent = () => {
     const [regionList, setRegionList] = useState([]);
@@ -17,6 +17,7 @@ const CategoryListComponent = () => {
     const [parkingName, setParkingName] = useState('주차');
     const setGymList = useSetRecoilState(gymListAtom);
     const setGymLength = useSetRecoilState(gymListLengthAtom);
+
     //searchParams 의 key, value 값을 가져오기 위한 함수
     const params: { [key: string]: string } = {};
     for (const [key, value] of searchParams.entries()) {
@@ -24,6 +25,21 @@ const CategoryListComponent = () => {
     }
     //새로고침시 url 에 초기값 지정
     const [filterParams, setFilterParams] = useState(params);
+
+    //map 모달 불러오는 함수
+    const [modalIsOpen, setIsOpen] = useState<boolean>(false);
+
+    const openModal = () => {
+        setIsOpen(true);
+    };
+
+    const afterOpenModal = () => {
+        // references are now sync'd and can be accessed.
+    };
+
+    const closeModal = () => {
+        setIsOpen(false);
+    };
 
     const navigate = useNavigate();
 
@@ -81,8 +97,11 @@ const CategoryListComponent = () => {
     };
     return (
         <>
-            <div className="flex gap-2 max-h-11 z-50">
-                <div className="text-primary-45 border-solid border-2 border-primary-a6 rounded-lg flex items-center px-3 py-2 cursor-pointer">
+            <div className="flex gap-2 max-h-11">
+                <div
+                    onClick={openModal}
+                    className="text-primary-45 border-solid border-2 border-primary-a6 rounded-lg flex items-center px-3 py-2 cursor-pointer"
+                >
                     <img src="../public/icon/map.svg" alt="" />
                 </div>
                 {categories.map((category, index) => (
@@ -94,9 +113,15 @@ const CategoryListComponent = () => {
                         filterMode={categories[index].name}
                     ></CategoryButtonComponent>
                 ))}
-                <div className="text-primary-45 border-solid border-2 border-primary-a6 px-3 py-2 cursor-pointer rounded-lg flex items-center gap-2 max-h-11" onClick={() => navigate('/')}>
+                <div
+                    className="text-primary-45 border-solid border-2 border-primary-a6 px-3 py-2 cursor-pointer rounded-lg flex items-center gap-2 max-h-11"
+                    onClick={() => navigate('/')}
+                >
                     필터 초기화
                 </div>
+            </div>
+            <div>
+                <MapModalComponent modalIsOpen={modalIsOpen} closeModal={closeModal}></MapModalComponent>
             </div>
         </>
     );

@@ -10,7 +10,8 @@ export default {
             error: '#EE3131',
             'primary-45': '#454545',
             'primary-a6': '#A6A6A6',
-            'white': '#ffffff'
+            'primary-e3': '#E3E3E3',
+            white: '#ffffff',
         },
         fontSize: {
             28: '28px',
@@ -20,4 +21,4 @@ export default {
         },
     },
     plugins: [],
-}
+};

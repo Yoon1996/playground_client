@@ -18,3 +18,8 @@ export const getGymsLength = () => {
 export const showPageGymList = (params?: IFilterModel) => {
     return axios.get(`${baseUrl}/gym/gyms`, { params });
 };
+
+//디테일 페이지 가져오기
+export const showDetailGym = (id: number) => {
+    return axios.get(`${baseUrl}/gym/gym_detail/${id}`);
+};

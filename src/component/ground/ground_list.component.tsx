@@ -3,6 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { gymListAtom, gymListLengthAtom } from '../../atom/gym.atom';
 import PaginationComponent from '../pagination.component';
 import GroundComponent from './ground_component';
+import { useNavigate } from 'react-router-dom';
 
 const GroundListComponent = () => {
     const gymList = useRecoilValue(gymListAtom);
@@ -13,17 +14,24 @@ const GroundListComponent = () => {
     const [limit, setLimit] = useState<number>(5);
     // const currentPosts = (posts: string[]) => posts.slice(indexOfFirst, indexOfLast);
     const gymLength = useRecoilValue(gymListLengthAtom);
+    const navigate = useNavigate();
+
+    const goDetailPage = (id: number) => {
+        navigate(`/gyms_detail?id=${id}`);
+    };
     return (
         <>
             <div className="flex  gap-4 justify-start flex-wrap">
                 {gymList.map((gym: any) => (
                     <GroundComponent
                         key={gym.id}
+                        gymId={gym.id}
                         name={gym.name}
                         sportsType={gym.sportsType}
                         size={gym.size}
                         parking={gym.parkingInfo}
                         time={gym.operatingTimeDay}
+                        goDetailPage={goDetailPage}
                     ></GroundComponent>
                 ))}
             </div>

@@ -19,6 +19,9 @@ import AccountTemplate from './template/account.template';
 import LoginTemplate from './template/login.template';
 import MainTemplate from './template/main.template';
 import { clearAccessToken, getAccessToken } from './util/localstorage.util';
+import MainDetailPage from './page/main_detail.page';
+import { NavermapsProvider } from 'react-naver-maps';
+import ReservationPage from './page/reservation.page';
 
 //css 초기화
 const GlobalStyle = createGlobalStyle`
@@ -55,6 +58,7 @@ function App() {
                 });
         }
     }, []);
+
     return (
         <>
             <GoogleOAuthProvider clientId={clientId}>
@@ -71,6 +75,8 @@ function App() {
                             }
                         >
                             <Route path="gyms" element={<MainPage></MainPage>}></Route>
+                            <Route path="gyms_detail" element={<MainDetailPage></MainDetailPage>}></Route>
+                            <Route path="gyms_reserve" element={<ReservationPage></ReservationPage>}></Route>
                         </Route>
                         <Route path="/login" element={<LoginTemplate></LoginTemplate>}>
                             <Route path="login-page" element={<LoginPage></LoginPage>}></Route>

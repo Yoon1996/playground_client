@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { MenuItem } from '@mui/material';
+import Menu from '@mui/material/Menu';
+import React from 'react';
 
 interface CategoryButtonProps {
     category: string;
@@ -8,44 +10,54 @@ interface CategoryButtonProps {
 }
 
 const CategoryButtonComponent = ({ category, dropwdownItems, updateFilters, filterMode }: CategoryButtonProps) => {
-    const [isPressed, setIsPressed] = useState<boolean>(false);
-    const handleButtonClick = () => {
-        setIsPressed(!isPressed);
-    };
     const handleDropdownItemClick = (item: string) => {
-        setIsPressed(false);
         updateFilters(filterMode, item);
+        handleClose();
+    };
+
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
     };
 
     return (
         <>
             <div>
-                <div
-                    className={`text-primary-45 border-solid border-2 border-primary-a6 px-3 py-2 cursor-pointer rounded-lg flex items-center gap-2 max-h-11
-      ${isPressed ? 'border-primary-45 border-3' : ''}
-      `}
-                    onClick={() => handleButtonClick()}
+                <button
+                    id="basic-button"
+                    className="flex gap-1 border-2 rounded-lg h-11 justify-center items-center px-2 py-3 border-primary-a6 text-primary-45"
+                    aria-controls={open ? 'basic-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                    onClick={(e) => handleClick(e)}
                 >
                     {category}
-                    <img src="../public/icon/caret-down.svg" alt="" />
-                </div>
-                {isPressed ? (
-                    <div className="border-2 border-solid rounded-md border-primary-a6 bg-white mt-2 flex flex-col items-center gap-2 py-1">
-                        {dropwdownItems.map((item, index) => (
-                            <div
-                                onClick={() => {
-                                    handleDropdownItemClick(item);
-                                }}
-                                className="cursor-pointer flex text-primary-45 w-full h-5 items-center justify-center hover:bg-primary-light transition-all"
-                                key={index}
-                            >
-                                {item}
-                            </div>
-                        ))}
-                    </div>
-                ) : (
-                    ''
-                )}
+                    <img className="w-5 h-5" src="../public/icon/caret-down.svg" alt="" />
+                </button>
+                <Menu
+                    className="h-80"
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    MenuListProps={{
+                        'aria-labelledby': 'basic-button',
+                    }}
+                >
+                    {dropwdownItems.map((item, index) => (
+                        <MenuItem
+                            className="flex justify-center"
+                            onClick={() => handleDropdownItemClick(item)}
+                            key={index}
+                        >
+                            {item}
+                        </MenuItem>
+                    ))}
+                </Menu>
             </div>
         </>
     );

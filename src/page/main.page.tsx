@@ -1,26 +1,19 @@
 import { useEffect } from 'react';
-import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { filterParamsAtom, gymListAtom, gymListLengthAtom } from '../atom/gym.atom';
+import { useSearchParams } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import { gymListAtom, gymListLengthAtom } from '../atom/gym.atom';
+import CategoryListComponent from '../component/category/category_list.component';
 import GroundListComponent from '../component/ground/ground_list.component';
 import HeaderComponent from '../component/header.component';
 import { IFilterModel } from '../interface/filter.interface';
 import { showPageGymList } from '../service/gym.service';
-import CategoryListComponent from '../component/category/category_list.component';
 
 const MainPage = () => {
     const setGymList = useSetRecoilState(gymListAtom);
     const setGymListLength = useSetRecoilState(gymListLengthAtom);
-    const setFilterParams = useSetRecoilState(filterParamsAtom);
-    const filterParams = useRecoilValue(filterParamsAtom);
-
     const [searchParams] = useSearchParams();
     const page = searchParams.get('page');
     const search = searchParams.get('search');
-    const region = searchParams.get('region');
-    const sportsType = searchParams.get('sportsType');
-    const parking = searchParams.get('parking');
-    const navigate = useNavigate();
     useEffect(() => {
         console.log('search: ', searchParams);
         reLoadUrl();
