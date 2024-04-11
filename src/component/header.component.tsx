@@ -21,7 +21,7 @@ const HeaderComponent = () => {
                 <SearchComponent></SearchComponent>
             </div>
             <div className="cursor-pointer flex flex-row items-center gap-2">
-                <div>
+                <div onClick={() => navigate('/my_schedule')}>
                     <img className="size-8" src="../public/icon/calendar.png" alt="" />
                 </div>
                 <div className="cursor-pointer" onClick={() => navigate('/account/profile')}>

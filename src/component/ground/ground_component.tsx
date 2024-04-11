@@ -17,7 +17,7 @@ const GroundComponent = ({ name, sportsType, size, time, parking, goDetailPage, 
         <>
             {/* {gymList.map((gym, index:number) =>  */}
             <div
-                className="w-60 h-80 flex flex-col justify-between cursor-pointer shadow-xl border-2  rounded-md p-3 "
+                className="w-60 h-80 flex flex-col justify-between shadow-xl border-2 rounded-md p-3 cursor-pointer"
                 onClick={() => goDetailPage(gymId)}
             >
                 <div className="w-full h-32">

@@ -1,7 +1,7 @@
 import Modal from 'react-modal';
 import NaverMapsComponent from '../naver_maps.component';
 
-const MapModalComponent = ({ modalIsOpen, closeModal }) => {
+const MapModalComponent = ({ modalIsOpen, closeModal }: any) => {
     const customStyles = {
         content: {
             width: '50%',

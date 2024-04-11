@@ -1,0 +1,19 @@
+import axios from 'axios';
+import { IReservationDelete } from '../interface/reservation.interface';
+
+const baseUrl = `${import.meta.env.VITE_APP_HOST}`;
+// const baseUrl = `${process.env.REACT_APP_HOST}/gym`
+//예약하기
+export const createReservation = (params: any) => {
+    return axios.post(`${baseUrl}/reservation/create_reservation`, params);
+};
+
+//예약 정보 가져오기
+export const getReservation = (id: number) => {
+    return axios.get(`${baseUrl}/reservation/get_reservation/${id}`);
+};
+
+//예약 정보 삭제오기
+export const deleteReservation = (gymId: number) => {
+    return axios.delete(`${baseUrl}/reservation/delete_reservation/${gymId}`);
+};

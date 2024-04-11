@@ -1,45 +1,45 @@
 export interface IUser {
-    email: string
-    password: string
-    rePassword?: string
-    name: string
-    sex: string
-    birth: string
-    phoneNumber: string
-    provider: string
+    email: string;
+    password: string;
+    rePassword?: string;
+    name: string;
+    sex: string;
+    birth: string;
+    phoneNumber: string;
+    provider: string;
 }
 
 export interface ILoginUser {
-    email: string
-    password: string
+    email: string;
+    password: string;
 }
 
 export interface ILoggedinUser {
-    id: number
-    email: string
-    password?: string
-    name: string
-    sex: string
-    birth: string
-    phoneNumber: string
-    provider: string
+    id: number;
+    email: string;
+    password?: string;
+    name: string;
+    sex: string;
+    birth: string;
+    phoneNumber: string;
+    provider: string;
 }
 
 export interface IAddProfile {
-    id: number
-    sex: string
-    birth: string
-    phoneNumber: string
+    id: number;
+    sex: string;
+    birth: string;
+    phoneNumber: string;
 }
 
 export interface IUpdateProfile {
-    phoneNumber?: string
-    birth?: string
-    password?: string
+    phoneNumber?: string;
+    birth?: string;
+    password?: string;
 }
 
 export interface IChangePw {
-    oldPassword?: string
-    password?: string
-    newPassword?: string
+    oldPassword?: string;
+    password?: string;
+    newPassword?: string;
 }

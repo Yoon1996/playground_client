@@ -1,17 +1,19 @@
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { userInfoAtom } from '../atom/user.atom';
 import ButtonComponent from '../component/button.component';
 import CalendarComponent from '../component/calendar.component';
 import HeaderComponent from '../component/header.component';
 import ReservationCardComponent from '../component/reservationCard.component';
-import { constSelector, useRecoilValue } from 'recoil';
-import { updateUserInfo } from '../atom/user.atom';
-import { showDetailGym } from '../service/gym.service';
-import { useSearchParams } from 'react-router-dom';
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import TimeTableComponent from '../component/timeTable.component';
+import { showDetailGym } from '../service/gym.service';
+import { createReservation } from '../service/reservation.service';
 
 const ReservationPage = () => {
-    const user = useRecoilValue(updateUserInfo);
+    const user = useRecoilValue(userInfoAtom);
+    const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const gymId = searchParams.get('id');
     const [data, setData] = useState({
@@ -49,12 +51,14 @@ const ReservationPage = () => {
     };
     const reserve = () => {
         const params = {
-            locationId: gymId,
-            name: user.name,
-            people: people,
-            phoneNumber: user.phoneNumber,
+            userId: user.id,
+            gymId: Number(gymId),
+            locationName: data.name,
             date: selectedDate,
-            time: selectedTimeArray,
+            people: String(people),
+            phoneNumber: user.phoneNumber,
+            time: selectedTimeArray.join(','),
+            price: String(peoplePrice),
         };
         if (params.date === undefined) {
             alert('날짜 입력 바람');
@@ -63,11 +67,20 @@ const ReservationPage = () => {
         } else if (params.people === '') {
             alert('인원 수 입력 바람');
         } else {
-            console.log('params: ', params);
+            createReservation(params)
+                .then((res) => {
+                    console.log('res: ', res);
+                    alert('예약이 완료되었습니다!');
+                    navigate('/');
+                })
+                .catch((err) => {
+                    console.log('err: ', err);
+                });
         }
     };
 
     const [selectedDate, setSelectedDate] = useState<Date>();
+
     const changeDate = (date: Date) => {
         setSelectedDate(date);
     };
@@ -75,10 +88,12 @@ const ReservationPage = () => {
         setPeople(event.target.value as string);
     };
 
+    const peoplePrice =
+        !people && selectedTimeArray.length === 0 ? 0 : Number(data.price) * Number(people) * selectedTimeArray.length;
+
     useEffect(() => {
         showHandler();
-        console.log('selectedTimeArray: ', selectedTimeArray);
-    }, [selectedDate, selectedTimeArray]);
+    }, [selectedDate, selectedTimeArray, data.operatingTimeDay]);
     return (
         <>
             <HeaderComponent></HeaderComponent>
@@ -118,7 +133,7 @@ const ReservationPage = () => {
                 locationPhoneNumber={data.phoneNumber}
                 date={selectedDate}
                 people={people}
-                price={data.price}
+                price={peoplePrice}
                 selectedTime={selectedTimeArray}
             ></ReservationCardComponent>
             <ButtonComponent ment="예약 하기" click={reserve}></ButtonComponent>

@@ -1,6 +1,4 @@
-import { parse } from 'path';
-import React, { useEffect, useState } from 'react';
-import { arrayBuffer } from 'stream/consumers';
+import { useEffect, useState } from 'react';
 
 interface timeTableProps {
     operatingTime: string;
@@ -9,26 +7,22 @@ interface timeTableProps {
 }
 
 const TimeTableComponent = ({ operatingTime, getSelectedTime, selectedTime }: timeTableProps) => {
-    const [selectedDotwIndex, setSelectedDotwIndex] = useState<number | null>(null);
-    const timeArray = operatingTime.split('-');
+    // const [selectedDotwIndex, setSelectedDotwIndex] = useState<number | null>(null);
+    const timeArray = operatingTime.split('~');
     const startTime = timeArray[0];
     const endTime = timeArray[1];
-
-    //선택된 시간 배열에 시간이 포함되어있는지 확인하는 함수
-    const timeClickHandler = (time: any) => {
-        if (selectedTime.includes(time)) {
-            console.log(selectedTime.includes(time));
-        }
-    };
-
-    const timetable: any = [];
-    for (let hour = parseInt(startTime); hour < parseInt(endTime); hour++) {
-        timetable.push(hour);
-    }
+    const [timetable, setTimetable] = useState<number[]>([]);
 
     useEffect(() => {
-        // console.log('timetable: ', timetable);
-    }, []);
+        console.log('startTime: ', startTime);
+        console.log('endTime: ', endTime);
+        const list: number[] = [];
+        for (let hour = parseInt(startTime); hour < parseInt(endTime); hour++) {
+            list.push(hour);
+        }
+        setTimetable([...timetable, ...list]);
+    }, [operatingTime]);
+
     return (
         <>
             <div className="flex flex-wrap w-full gap-9">

@@ -8,7 +8,7 @@ interface ReCardProps {
     locationPhoneNumber: string;
     locationType: string;
     people: string | undefined;
-    price: string;
+    price: number;
     selectedTime: string[];
 }
 
@@ -28,11 +28,6 @@ const ReservationCardComponent = ({
     const day = date?.getDate();
 
     useEffect(() => {}, [date]);
-
-    const peoplePrice = !people && selectedTime.length === 0 ? 0 : Number(price) * Number(people) * selectedTime.length;
-    const timeTableRender = () => {
-        return <div className="font-bold text-20">이용시간:</div>;
-    };
 
     return (
         <>
@@ -56,7 +51,7 @@ const ReservationCardComponent = ({
                     ))}
                 </div>
                 <div className="font-bold text-20">문의: {locationPhoneNumber}</div>
-                <div className="font-bold text-20">가격: {peoplePrice}원</div>
+                <div className="font-bold text-20">가격: {price}원</div>
             </div>
         </>
     );

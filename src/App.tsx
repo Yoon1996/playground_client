@@ -12,16 +12,16 @@ import './index.css';
 import AddProfilePage from './page/add_profile.page';
 import LoginPage from './page/login.page';
 import MainPage from './page/main.page';
+import MainDetailPage from './page/main_detail.page';
+import MySchedulePage from './page/my_schedule.page';
 import ProfilePage from './page/profile.page';
 import RegisterPage from './page/register.page';
+import ReservationPage from './page/reservation.page';
 import { tokenVerify } from './service/auth.service';
 import AccountTemplate from './template/account.template';
 import LoginTemplate from './template/login.template';
 import MainTemplate from './template/main.template';
 import { clearAccessToken, getAccessToken } from './util/localstorage.util';
-import MainDetailPage from './page/main_detail.page';
-import { NavermapsProvider } from 'react-naver-maps';
-import ReservationPage from './page/reservation.page';
 
 //css 초기화
 const GlobalStyle = createGlobalStyle`
@@ -47,6 +47,7 @@ function App() {
             axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
             tokenVerify()
                 .then((res) => {
+                    console.log('res1111: ', res);
                     setUserInfo(res.data);
                     setUpdateUserInfo(res.data);
                     setLoginState({ state: true });
@@ -77,6 +78,7 @@ function App() {
                             <Route path="gyms" element={<MainPage></MainPage>}></Route>
                             <Route path="gyms_detail" element={<MainDetailPage></MainDetailPage>}></Route>
                             <Route path="gyms_reserve" element={<ReservationPage></ReservationPage>}></Route>
+                            <Route path="my_schedule" element={<MySchedulePage></MySchedulePage>}></Route>
                         </Route>
                         <Route path="/login" element={<LoginTemplate></LoginTemplate>}>
                             <Route path="login-page" element={<LoginPage></LoginPage>}></Route>

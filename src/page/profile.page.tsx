@@ -5,7 +5,7 @@ import ButtonComponent from '../component/button.component';
 import Modal from '../component/modal/modal.component';
 
 const ProfilePage = () => {
-    const user = useRecoilValue(updateUserInfo);
+    const user = useRecoilValue(userInfoAtom);
     const date = new Date(user.birth);
     const month = date.getMonth() + 1;
     const myBirth = date.getFullYear() + '년 ' + month + '월 ' + date.getDate() + '일';

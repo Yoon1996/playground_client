@@ -1,94 +1,94 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import ButtonComponent from '../component/button.component'
-import InputComponent from '../component/input.component'
-import SelectComponent from '../component/select.component'
-import { IErrors } from '../interface/error.interface'
-import { IUser } from '../interface/user.interface'
-import { createUser } from '../service/user.service'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import ButtonComponent from '../component/button.component';
+import InputComponent from '../component/input.component';
+import SelectComponent from '../component/select.component';
+import { IErrors } from '../interface/error.interface';
+import { IUser } from '../interface/user.interface';
+import { createUser } from '../service/user.service';
 
 const RegisterPage = () => {
     //초기값 설정
-    const [email, setEmail] = useState<string>('')
-    const [password, setPassword] = useState<string>('')
-    const [rePw, setRePw] = useState<string>('')
-    const [name, setName] = useState<string>('')
-    const [sex, setSex] = useState<string>('')
-    const [selectedSex, setSelectedSex] = useState<number>(1)
-    const [birth, setBirth] = useState<string>('')
-    const [phoneNumber, setPhoneNumber] = useState<string>('')
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [rePw, setRePw] = useState<string>('');
+    const [name, setName] = useState<string>('');
+    const [sex, setSex] = useState<string>('');
+    const [selectedSex, setSelectedSex] = useState<number>(1);
+    const [birth, setBirth] = useState<string>('');
+    const [phoneNumber, setPhoneNumber] = useState<string>('');
 
     //에러처리
-    const [emailError, setEmailError] = useState<IErrors>({})
-    const [pwError, setPwError] = useState<IErrors>({})
-    const [birthError, setBirthError] = useState<IErrors>({})
+    const [emailError, setEmailError] = useState<IErrors>({});
+    const [pwError, setPwError] = useState<IErrors>({});
+    const [birthError, setBirthError] = useState<IErrors>({});
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (selectedSex === 1) {
-            setSex('MALE')
+            setSex('MALE');
         } else if (selectedSex === 2) {
-            setSex('FEMALE')
+            setSex('FEMALE');
         }
-    }, [selectedSex])
+    }, [selectedSex]);
 
     //이메일 검증
-    const expression: RegExp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
+    const expression: RegExp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
     const emailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newEmail = event.target.value
-        setEmail(newEmail)
+        const newEmail = event.target.value;
+        setEmail(newEmail);
 
-        const checkRes = expression.test(newEmail)
+        const checkRes = expression.test(newEmail);
         if (checkRes) {
-            setEmailError({ ...emailError, email: null })
+            setEmailError({ ...emailError, email: null });
         } else {
-            setEmailError({ ...emailError, email: '이메일 형식이 아닙니다.' })
+            setEmailError({ ...emailError, email: '이메일 형식이 아닙니다.' });
         }
-    }
+    };
 
     const pwChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(event.target.value)
-    }
+        setPassword(event.target.value);
+    };
     const rePwChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRePw(event.target.value)
-    }
+        setRePw(event.target.value);
+    };
 
     //비밀번호 확인
     useEffect(() => {
         if (password && rePw && password !== rePw) {
-            setPwError({ ...pwError, password: '비밀번호가 맞지 않습니다.' })
+            setPwError({ ...pwError, password: '비밀번호가 맞지 않습니다.' });
         } else {
-            setPwError({ ...pwError, password: null })
+            setPwError({ ...pwError, password: null });
         }
-    }, [password, rePw])
+    }, [password, rePw]);
 
     const nameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setName(event.target.value)
-    }
+        setName(event.target.value);
+    };
 
     const sexChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedSex(Number(event.target.value))
-    }
+        setSelectedSex(Number(event.target.value));
+    };
     const birthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setBirth(event.target.value)
+        setBirth(event.target.value);
         if (event.target.value.length !== 8) {
             setBirthError({
                 ...birthError,
                 birth: '생년월일은 8개의 숫자를 입력해주세요.',
-            })
+            });
         } else {
             setBirthError({
                 ...birthError,
                 birth: null,
-            })
+            });
         }
-    }
+    };
     const numberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPhoneNumber(event.target.value)
-    }
+        setPhoneNumber(event.target.value);
+    };
 
     //회원가입
     const userRegist = async () => {
@@ -103,31 +103,31 @@ const RegisterPage = () => {
             birth: birth,
             phoneNumber: phoneNumber,
             provider: 'email',
-        }
+        };
         if (Object.values(data).every((value) => value !== '')) {
             try {
-                const response = await createUser(data)
-                console.log('response: ', response)
-                alert('회원가입이 완료되었습니다.')
-                navigate('/login/login-page')
+                const response = await createUser(data);
+                console.log('response: ', response);
+                alert('회원가입이 완료되었습니다.');
+                navigate('/login/login-page');
             } catch (error: any) {
-                console.log('error: ', error)
+                console.log('error: ', error);
                 if (error.response.status === 409) {
                     setEmailError({
                         ...emailError,
                         email: '중복된 이메일입니다.',
-                    })
+                    });
                 } else {
                     setEmailError({
                         ...emailError,
                         email: null,
-                    })
+                    });
                 }
             }
         } else {
-            alert('빈 칸을 모두 채워주세요.')
+            alert('빈 칸을 모두 채워주세요.');
         }
-    }
+    };
     return (
         <>
             <div className="flex flex-col gap-5">
@@ -141,9 +141,7 @@ const RegisterPage = () => {
                             type="text"
                             placeholder="이메일을 입력해주세요."
                         ></InputComponent>
-                        <div className="text-error">
-                            {emailError?.email ? <p>{emailError?.email}</p> : ''}
-                        </div>
+                        <div className="text-error">{emailError?.email ? <p>{emailError?.email}</p> : ''}</div>
                     </div>
                     <div className="flex flex-col gap-2">
                         <div>비밀번호</div>
@@ -162,9 +160,7 @@ const RegisterPage = () => {
                             type="password"
                             placeholder="비밀번호를 한 번 더 입력해주세요."
                         ></InputComponent>
-                        <div className="text-error">
-                            {pwError?.password ? <p>{pwError?.password}</p> : ''}
-                        </div>
+                        <div className="text-error">{pwError?.password ? <p>{pwError?.password}</p> : ''}</div>
                     </div>
                     <div className="flex flex-col gap-2">
                         <div>이름</div>
@@ -196,9 +192,7 @@ const RegisterPage = () => {
                                 placeholder="19961025"
                             ></InputComponent>
                         </div>
-                        <div className="text-error">
-                            {birthError?.birth ? <p>{birthError?.birth}</p> : ''}
-                        </div>
+                        <div className="text-error">{birthError?.birth ? <p>{birthError?.birth}</p> : ''}</div>
                     </div>
                     <div className="flex flex-col gap-2">
                         <div>휴대폰 번호</div>
@@ -213,7 +207,7 @@ const RegisterPage = () => {
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
 
-export default RegisterPage
+export default RegisterPage;
