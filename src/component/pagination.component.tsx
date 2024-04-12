@@ -56,7 +56,7 @@ const PaginationComponent = ({ postsPerPage, paginate, limit, totalPostsLength, 
     };
     return (
         <>
-            <div className="flex justify-center items-center gap-8 h-6">
+            <div className="flex justify-center items-center gap-8 h-6 my-10">
                 <button
                     onClick={() => {
                         changePageNumber(currentPage - 1);

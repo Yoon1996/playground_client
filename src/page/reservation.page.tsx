@@ -89,7 +89,9 @@ const ReservationPage = () => {
     };
 
     const peoplePrice =
-        !people && selectedTimeArray.length === 0 ? 0 : Number(data.price) * Number(people) * selectedTimeArray.length;
+        !selectedDate || !people || selectedTimeArray.length === 0 || data.price === '무료'
+            ? 0
+            : Number(data.price) * Number(people) * selectedTimeArray.length;
 
     useEffect(() => {
         showHandler();

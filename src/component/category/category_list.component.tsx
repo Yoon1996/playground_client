@@ -33,10 +33,6 @@ const CategoryListComponent = () => {
         setIsOpen(true);
     };
 
-    const afterOpenModal = () => {
-        // references are now sync'd and can be accessed.
-    };
-
     const closeModal = () => {
         setIsOpen(false);
     };

@@ -17,7 +17,7 @@ const MapModalComponent = ({ modalIsOpen, closeModal }: any) => {
 
     return (
         <>
-            <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles}>
+            <Modal ariaHideApp={false} isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles}>
                 <NaverMapsComponent address="current"></NaverMapsComponent>
             </Modal>
         </>

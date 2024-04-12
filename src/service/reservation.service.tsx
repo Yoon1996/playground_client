@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { IReservationDelete } from '../interface/reservation.interface';
 
 const baseUrl = `${import.meta.env.VITE_APP_HOST}`;
 // const baseUrl = `${process.env.REACT_APP_HOST}/gym`
