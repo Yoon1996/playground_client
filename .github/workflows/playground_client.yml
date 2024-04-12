@@ -14,7 +14,12 @@ jobs:
 
       - name: Install Dependencies # node module install
         run: npm install
-        working-directory: ./playground_client
+        # working-directory: ./playground_client
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
 
       - name: Build # project buil
         run: npm run dev
