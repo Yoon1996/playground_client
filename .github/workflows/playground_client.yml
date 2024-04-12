@@ -16,7 +16,7 @@ jobs:
         run: npm install
         working-directory: ./playground_client
 
-      - name: Build # project build
+      - name: Build # project buil
         run: npm run dev
         env:
           CI: ""
