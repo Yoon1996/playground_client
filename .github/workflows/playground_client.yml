@@ -27,7 +27,7 @@ jobs:
           CI: ""
 
       - name: Deploy
-        uses: actions.deploy-pages@v4
+        uses: actions/deploy-pages@v4
         with:
           args: --delete
           path: './dist'
