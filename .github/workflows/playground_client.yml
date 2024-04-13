@@ -27,14 +27,14 @@ jobs:
           CI: ""
 
       - name: Deploy
-        uses: seongjun/s3-sync-action@master
+        uses: actions.deploy-pages@v4
         with:
           args: --delete
+          path: './dist'
         env:
           AWS_S3_BUCKET: playground-client
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ap-northeast-2
-          SOURCE_DIR: "dist"
         # run: aws s3 sync ./dist s3://playground-client
         # ddss
