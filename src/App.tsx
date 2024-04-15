@@ -47,7 +47,7 @@ function App() {
             axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
             tokenVerify()
                 .then((res) => {
-                    console.log('res1111: ', res);
+                    // console.log('res1111: ', res);
                     setUserInfo(res.data);
                     setUpdateUserInfo(res.data);
                     setLoginState({ state: true });

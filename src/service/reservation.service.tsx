@@ -16,3 +16,8 @@ export const getReservation = (id: number) => {
 export const deleteReservation = (gymId: number) => {
     return axios.delete(`${baseUrl}/reservation/delete_reservation/${gymId}`);
 };
+
+//예약 불가 버튼 처리 하기
+export const canNotReservation = (date: string) => {
+    return axios.get(`${baseUrl}/reservation/can_not_reservation/${date}`);
+};

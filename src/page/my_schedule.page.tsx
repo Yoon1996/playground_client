@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 const MySchedulePage = () => {
     const user = useRecoilValue(userInfoAtom);
     const [reservation, setReservation] = useState([
-        { date: '', id: 0, locationName: '', people: '', phoneNumber: '', price: '', gymId: 0 },
+        { date: '', id: 0, locationName: '', people: '', phoneNumber: '', price: '', gymId: 0, time: '' },
     ]);
     const [propId, setPropId] = useState<number>(0);
     const [modalIsOpen, setIsOpen] = useState<boolean>(false);
@@ -25,6 +25,11 @@ const MySchedulePage = () => {
     };
     useEffect(() => {
         getMySchedule();
+        const dd = '16,18';
+        console.log(
+            'dd: ',
+            dd.split(',').map((i) => i + '시 ~' + (Number(i) + 1) + '시'),
+        );
     }, [user, propId]);
 
     const getMySchedule = async () => {
@@ -60,7 +65,7 @@ const MySchedulePage = () => {
                 <div>예약 내역이 없습니다.</div>
             ) : (
                 <div className="flex flex-col gap-10">
-                    {reservation.map((e, index) => (
+                    {reservation.map((e: any, index) => (
                         <div className="flex flex-col gap-1 border-2 border-solid px-2 py-2 " key={index}>
                             <div className="flex gap-3">
                                 <div>번호: </div>
@@ -69,6 +74,12 @@ const MySchedulePage = () => {
                             <div className="flex gap-3">
                                 <div>날짜: </div>
                                 <div className="font-semibold">{e.date.slice(0, 10)}</div>
+                            </div>
+                            <div className="flex gap-3">
+                                <div>시간: </div>
+                                <div className="font-semibold">
+                                    {e.time.split(',').map((i: any) => i + '시 ~ ' + (Number(i) + 1) + '시 ')}
+                                </div>
                             </div>
                             <div className="flex gap-3">
                                 <div>장소: </div>

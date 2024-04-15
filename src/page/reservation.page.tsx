@@ -4,18 +4,20 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { userInfoAtom } from '../atom/user.atom';
 import ButtonComponent from '../component/button.component';
-import CalendarComponent from '../component/calendar.component';
 import HeaderComponent from '../component/header.component';
+import NewCalendarComponent from '../component/newCalendar.component';
 import ReservationCardComponent from '../component/reservationCard.component';
 import TimeTableComponent from '../component/timeTable.component';
 import { showDetailGym } from '../service/gym.service';
-import { createReservation } from '../service/reservation.service';
+import { canNotReservation, createReservation } from '../service/reservation.service';
 
 const ReservationPage = () => {
     const user = useRecoilValue(userInfoAtom);
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const gymId = searchParams.get('id');
+    const [alreadySelectedTime, alreadySetSelectedTime] = useState([]);
+
     const [data, setData] = useState({
         size: '',
         address: '',
@@ -31,18 +33,22 @@ const ReservationPage = () => {
     });
     const [selectedTimeArray, setSelectedTimeArray] = useState<string[]>([]);
     const getSelectedTime = (time: string) => {
-        if (selectedTimeArray.includes(time)) {
-            const filteredTimeArray = selectedTimeArray.filter((e) => e !== time);
-            setSelectedTimeArray(filteredTimeArray);
+        if (!selectedDate) {
+            alert('원하시는 날짜를 먼저 선택해주세요!');
         } else {
-            setSelectedTimeArray([...selectedTimeArray, time]);
+            if (selectedTimeArray.includes(time)) {
+                const filteredTimeArray = selectedTimeArray.filter((e) => e !== time);
+                setSelectedTimeArray(filteredTimeArray);
+            } else {
+                setSelectedTimeArray([...selectedTimeArray, time]);
+            }
         }
     };
     const [people, setPeople] = useState<string>('');
     const showHandler = () => {
         showDetailGym(Number(gymId))
             .then((res) => {
-                console.log('res: ', res);
+                // console.log('res: ', res);
                 setData(res.data);
             })
             .catch((err) => {
@@ -69,7 +75,7 @@ const ReservationPage = () => {
         } else {
             createReservation(params)
                 .then((res) => {
-                    console.log('res: ', res);
+                    // console.log('res: ', res);
                     alert('예약이 완료되었습니다!');
                     navigate('/');
                 })
@@ -79,9 +85,17 @@ const ReservationPage = () => {
         }
     };
 
-    const [selectedDate, setSelectedDate] = useState<Date>();
+    const [selectedDate, setSelectedDate] = useState<string>();
 
-    const changeDate = (date: Date) => {
+    const changeDate = (date: string) => {
+        canNotReservation(date)
+            .then((res) => {
+                console.log('res: ', res);
+                alreadySetSelectedTime(res.data);
+            })
+            .catch((err) => {
+                console.log('err: ', err);
+            });
         setSelectedDate(date);
     };
     const peopleChange = (event: SelectChangeEvent) => {
@@ -95,18 +109,20 @@ const ReservationPage = () => {
 
     useEffect(() => {
         showHandler();
-    }, [selectedDate, selectedTimeArray, data.operatingTimeDay]);
+    }, [selectedDate, selectedTimeArray, data.operatingTimeDay, alreadySelectedTime]);
     return (
         <>
             <HeaderComponent></HeaderComponent>
             <div className="my-6 text-20">1. 예약을 진행 하고 싶으신 날짜를 선택해주세요!</div>
-            <CalendarComponent changeDate={changeDate}></CalendarComponent>
+            {/* <CalendarComponent date={date} changeDate={changeDate}></CalendarComponent> */}
+            <NewCalendarComponent changeDate={changeDate}></NewCalendarComponent>
             <div className="my-6 text-20">2. 예약 시간을 선택해주세요!</div>
             <div className="my-6">
                 <TimeTableComponent
                     selectedTime={selectedTimeArray}
                     getSelectedTime={getSelectedTime}
                     operatingTime={data.operatingTimeDay}
+                    alreadySelectedTime={alreadySelectedTime}
                 ></TimeTableComponent>
             </div>
             <div className="my-6 text-20">3. 예약 인원을 선택해주세요!</div>

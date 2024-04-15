@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { updateUserInfo } from '../atom/user.atom';
 
 interface ReCardProps {
-    date: Date | undefined;
+    date: string | undefined;
     locationName: string;
     locationPhoneNumber: string;
     locationType: string;
@@ -22,10 +22,6 @@ const ReservationCardComponent = ({
     selectedTime,
 }: ReCardProps) => {
     const user = useRecoilValue(updateUserInfo);
-    const year = date?.getFullYear();
-
-    const month = date?.toLocaleString('default', { month: 'long' });
-    const day = date?.getDate();
 
     useEffect(() => {}, [date]);
 
@@ -37,9 +33,7 @@ const ReservationCardComponent = ({
                 <div className="font-bold text-20">이름: {user.name}</div>
                 <div className="font-bold text-20">인원: {!people ? '0' : people}명</div>
                 <div className="font-bold text-20">휴대폰 번호: {user.phoneNumber}</div>
-                <div className="font-bold text-20">
-                    날짜:{year}년 {month} {day}일
-                </div>
+                <div className="font-bold text-20">날짜: {date}</div>
                 <div className="font-bold text-20">
                     이용 시간:{' '}
                     {selectedTime.map((time, index) => (

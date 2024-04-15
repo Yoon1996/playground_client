@@ -26,8 +26,8 @@ const GroundComponent = ({ name, sportsType, size, time, parking, goDetailPage, 
                 <div className="flex gap-1 justify-between items-center">
                     <div>{name}</div>
                 </div>
-                <div className="flex justify-end gap-1">
-                    <div className="flex items-center">
+                {/* <div className="flex justify-end gap-1"> */}
+                {/* <div className="flex items-center">
                         <div>
                             <img src="../public/icon/star-f.png" alt="" />
                         </div>
@@ -38,8 +38,8 @@ const GroundComponent = ({ name, sportsType, size, time, parking, goDetailPage, 
                             <img src="../public/icon/heart.png" alt="" />
                         </div>
                         <div>210</div>
-                    </div>
-                </div>
+                    </div> */}
+                {/* </div> */}
                 <div className="flex flex-col justify-center text-primary-45 text-13 gap-1">
                     <div>{sportsType}</div>
                     <div>크기: {size}</div>

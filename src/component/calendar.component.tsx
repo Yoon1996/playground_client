@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import 'react-calendar/dist/Calendar.css';
+import { format } from 'date-fns';
 
 interface calendarProps {
     changeDate: (date: Date) => void;
@@ -7,6 +8,14 @@ interface calendarProps {
 
 const CalendarComponent = ({ changeDate }: calendarProps) => {
     const [date, setDate] = useState(new Date());
+    const dd = format(new Date(date), 'MM/dd/yyyy');
+    useEffect(() => {
+        console.log('date: ', date);
+        console.log('dd: ', dd);
+
+        renderDotw();
+        renderCalendar();
+    }, [date]);
     const [selectedDotwIndex, setSelectedDotwIndex] = useState<number | null>(null);
 
     //day of the week 요일
@@ -39,6 +48,7 @@ const CalendarComponent = ({ changeDate }: calendarProps) => {
 
         for (let i = 0; i < 7; i++) {
             const currentDate = new Date(startOfWeek);
+            // const currentDate = startOfWeek;
             currentDate.setDate(startOfWeek.getDate() + i - 1);
             days.push(currentDate);
         }
@@ -55,6 +65,7 @@ const CalendarComponent = ({ changeDate }: calendarProps) => {
                 key={index}
             >
                 {day.getDate()}
+                <div>{day.toDateString()}</div>
             </div>
         ));
     };
