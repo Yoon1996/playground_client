@@ -2,7 +2,7 @@ import axios from 'axios';
 import { IAddProfile, IChangePw, ILoginUser, IUpdateProfile, IUser } from '../interface/user.interface';
 
 // const baseUrl = `${import.meta.env.VITE_APP_HOST}`;
-const baseUrl = `${import.meta.env.VITE_PROD_HOST}:80`;
+const baseUrl = `${import.meta.env.VITE_PROD_HOST}`;
 
 //회원가입
 export const createUser = (body: IUser) => {
