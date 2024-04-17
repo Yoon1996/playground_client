@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { IAddProfile, IChangePw, ILoginUser, IUpdateProfile, IUser } from '../interface/user.interface';
 
-const baseUrl = `${import.meta.env.VITE_APP_HOST}`;
-// const baseUrl = `${process.env.REACT_APP_HOST}/user`
+// const baseUrl = `${import.meta.env.VITE_APP_HOST}`;
+const baseUrl = `${import.meta.env.PROD_HOST}`;
 
 //회원가입
 export const createUser = (body: IUser) => {
