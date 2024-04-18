@@ -35,7 +35,7 @@ function App() {
     const setLoginState = useSetRecoilState(loginStateAtom);
 
     useEffect(() => {
-        console.log(import.meta.env.VITE_PROD_HOST);
+        console.log(import.meta.env.VITE_APP_HOST);
         // console.log('LoginState: ', LoginState);
         const accessToken = getAccessToken();
         // console.log('accessToken: ', accessToken);

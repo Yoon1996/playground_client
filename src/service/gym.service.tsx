@@ -2,7 +2,6 @@ import axios from 'axios';
 import { IFilterModel } from '../interface/filter.interface';
 
 const baseUrl = `${import.meta.env.VITE_APP_HOST}`;
-// const baseUrl = `${import.meta.env.VITE_PROD_HOST}`;
 
 //전체 체육관 리스트 보여주기
 export const showGymList = () => {
