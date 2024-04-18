@@ -36,6 +36,7 @@ function App() {
 
     useEffect(() => {
         console.log(import.meta.env.VITE_APP_HOST);
+        //ㅇㅇ
         // console.log('LoginState: ', LoginState);
         const accessToken = getAccessToken();
         // console.log('accessToken: ', accessToken);
