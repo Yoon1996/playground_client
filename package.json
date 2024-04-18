@@ -5,9 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 8080",
-    "dev:prod": "vite --port 8080 --mode production",
-    "build": "vite build",
-    "build:prod": "vite build --mode production",
+    "build": "cp ./.env/.env.production . && vite build --mode production ",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
