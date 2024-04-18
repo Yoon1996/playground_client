@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const baseUrl = `${import.meta.env.VITE_APP_HOST}`;
-const baseUrl = `${import.meta.env.VITE_PROD_HOST}`;
+const baseUrl = `${import.meta.env.VITE_APP_HOST}`;
+// const baseUrl = `${import.meta.env.VITE_PROD_HOST}`;
 //예약하기
 export const createReservation = (params: any) => {
     return axios.post(`${baseUrl}/reservation/create_reservation`, params);

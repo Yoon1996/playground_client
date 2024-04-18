@@ -22,7 +22,7 @@ const MainDetailPage = () => {
         homepage: '',
         operatingTimeDay: '',
     });
-    const imageUrl = `../public/image/${data.sportsType}.jpg`;
+    const imageUrl = `/image/${data.sportsType}.jpg`;
     const [isFixed, setIsFixed] = useState<boolean>(false);
     const handleScroll = () => {
         const targetDiv = document.getElementById('fixedDiv');

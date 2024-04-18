@@ -80,7 +80,7 @@ const CalendarComponent = ({ changeDate }: calendarProps) => {
                             setSelectedDotwIndex(null);
                         }}
                     >
-                        <img className="cursor-pointer" src="../public/icon/left-arrow.png" alt="" />
+                        <img className="cursor-pointer" src="/icon/left-arrow.png" alt="" />
                     </div>
                     <div>
                         {date.getFullYear()}년 {date.toLocaleString('default', { month: 'long' })}
@@ -91,7 +91,7 @@ const CalendarComponent = ({ changeDate }: calendarProps) => {
                             setSelectedDotwIndex(null);
                         }}
                     >
-                        <img className="cursor-pointer" src="../public/icon/right-arrow.png" alt="" />
+                        <img className="cursor-pointer" src="/icon/right-arrow.png" alt="" />
                     </div>
                 </div>
                 <div className="flex flex-col w-full">

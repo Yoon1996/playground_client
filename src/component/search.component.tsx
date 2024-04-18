@@ -67,7 +67,7 @@ const SearchComponent = () => {
                 <img
                     onClick={() => searchHandler()}
                     className="w-5 h-5 absolute top-5 -mt-3 right-2 cursor-pointer"
-                    src="../public/icon/vector.png"
+                    src="/icon/vector.png"
                     alt=""
                 />
             </div>

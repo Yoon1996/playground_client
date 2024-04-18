@@ -36,7 +36,7 @@ const CategoryButtonComponent = ({ category, dropwdownItems, updateFilters, filt
                     onClick={(e) => handleClick(e)}
                 >
                     {category}
-                    <img className="w-5 h-5" src="../public/icon/caret-down.svg" alt="" />
+                    <img className="w-5 h-5" src="/icon/caret-down.svg" alt="" />
                 </button>
                 <Menu
                     className="h-80"

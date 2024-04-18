@@ -11,7 +11,7 @@ interface groundComponentProps {
 }
 
 const GroundComponent = ({ name, sportsType, size, time, parking, goDetailPage, gymId }: groundComponentProps) => {
-    const imageUrl = `../public/image/${sportsType}.jpg`;
+    const imageUrl = `/image/${sportsType}.jpg`;
     useEffect(() => {}, [imageUrl]);
     return (
         <>

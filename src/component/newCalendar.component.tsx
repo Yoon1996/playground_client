@@ -95,10 +95,10 @@ const NewCalendarComponent = ({ changeDate }: ICalendarProps) => {
                 </div>
                 <div className="flex justify-between">
                     <div className="cursor-pointer" onClick={prevMonth}>
-                        <img src="../public/icon/left-arrow.png" alt="" />
+                        <img src="/icon/left-arrow.png" alt="" />
                     </div>
                     <div className="cursor-pointer" onClick={nextMonth}>
-                        <img src="../public/icon/right-arrow.png" alt="" />
+                        <img src="/icon/right-arrow.png" alt="" />
                     </div>
                 </div>
                 <div className="grid grid-cols-7">{weeks}</div>

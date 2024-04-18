@@ -98,7 +98,7 @@ const CategoryListComponent = () => {
                     onClick={openModal}
                     className="text-primary-45 border-solid border-2 border-primary-a6 rounded-lg flex items-center px-3 py-2 cursor-pointer"
                 >
-                    <img src="../public/icon/map.svg" alt="" />
+                    <img src="/icon/map.svg" alt="" />
                 </div>
                 {categories.map((category, index) => (
                     <CategoryButtonComponent

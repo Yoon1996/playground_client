@@ -126,7 +126,7 @@ const Modal = ({ title, cancel }: IModal) => {
                     <div className="w-96 h-44 p-5 flex flex-col justify-center items-center gap-2 bg-white rounded-md shadow-md relative">
                         <img
                             className="w-6 h-6 absolute right-2 top-2 cursor-pointer"
-                            src="../public/icon/close.png"
+                            src="/icon/close.png"
                             onClick={cancel}
                             alt=""
                         />
@@ -142,7 +142,7 @@ const Modal = ({ title, cancel }: IModal) => {
                     <div className="w-96 h-44 p-5 flex flex-col justify-center items-center gap-2 bg-white rounded-md shadow-md relative">
                         <img
                             className="w-6 h-6 absolute right-2 top-2 cursor-pointer"
-                            src="../public/icon/close.png"
+                            src="/icon/close.png"
                             onClick={cancel}
                             alt=""
                         />
@@ -159,7 +159,7 @@ const Modal = ({ title, cancel }: IModal) => {
                     <div className="w-96 h-72 p-5 flex flex-col justify-center items-center gap-2 bg-white rounded-md shadow-md relative">
                         <img
                             className="w-6 h-6 absolute right-2 top-2 cursor-pointer"
-                            src="../public/icon/close.png"
+                            src="/icon/close.png"
                             onClick={cancel}
                             alt=""
                         />
