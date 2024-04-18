@@ -22,7 +22,7 @@ jobs:
           node-version: '20.x'
 
       - name: Build # project buil
-        run: npm run build:prod
+        run: npm run build
         env:
           CI: ""
 
