@@ -6,4 +6,3 @@ const baseUrl = `${import.meta.env.VITE_APP_HOST}`;
 export const showCategoryList = () => {
     return axios.get(`${baseUrl}/gym/category`);
 };
-//ㅇㅇ
