@@ -1,6 +1,3 @@
-import { read } from 'fs';
-import { useRef } from 'react';
-
 interface InputProps {
     readonly?: boolean;
     placeholder: string;
@@ -15,7 +12,7 @@ const InputComponent = ({ placeholder, type, value, change, press, notChangedVal
     return (
         <>
             <input
-                className="block w-full rounded-md border-0 py-1.5 pl-4 pr-20 text-gray-900 ring-1 ring-inset ring-primary-a6 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-dark focus:outline-none sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-1.5 pl-4 pr-18 text-gray-900 ring-1 ring-inset ring-primary-a6 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-dark focus:outline-none sm:text-sm sm:leading-6"
                 placeholder={placeholder}
                 type={type}
                 defaultValue={value}

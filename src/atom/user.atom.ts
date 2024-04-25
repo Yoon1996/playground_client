@@ -15,7 +15,7 @@ export const loginStateAtom = atom<any>({
 
 export const userInfoAtom = atom<any>({
     key: 'userInfo',
-    default: {},
+    default: { any: null },
     effects: [
         ({ onSet, setSelf }) => {
             const savedValue = localStorage.getItem('accessToken');

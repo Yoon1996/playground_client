@@ -8,6 +8,7 @@ import InputComponent from '../component/input.component';
 import { IErrors } from '../interface/error.interface';
 import { ILoginUser } from '../interface/user.interface';
 import { login, socialLogin } from '../service/user.service';
+import { Button } from '@mui/material';
 // import KakaoLogin from 'react-kakao-login'
 
 const LoginPage = () => {
@@ -61,7 +62,6 @@ const LoginPage = () => {
 
     const googleLogin = useGoogleLogin({
         onSuccess: (tokenResponse) => {
-            console.log('tokenResponse: ', tokenResponse);
             socialLogin(tokenResponse)
                 .then((res) => {
                     console.log('res: ', res);
@@ -85,34 +85,11 @@ const LoginPage = () => {
         flow: 'auth-code',
     });
 
-    //카카오 로그인(카카오 이메일 가져오기 불가)
-    // const kakaoClientId = '023830c29b998f688a6ac45d285dc358'
-    // const kakaoOnSuccess = async (data: any) => {
-    //     // console.log(data)
-    //     const idToken = data.response.access_token
-    //     const dd = {
-    //         token: idToken,
-    //     }
-    //     // console.log('idToken: ', idToken)
-    //     const result = await axios.post('http://localhost:3000/auth/kakao-login', dd)
-    //     console.log('result: ', result)
-    // }
-    // const kakaoOnFailure = (error: any) => {
-    //     console.log(error)
-    // }
-    // const kakaoLoginHandler = async () => {
-    //     const REST_API_KEY = '20028888d92bfd0b1c1b3c9241d655af'
-    //     const REDIRECT_URI = 'http://localhost:5173/auth'
-    //     const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`
-    //     const code = new URL(window.location.href).searchParams.get('code')
-    //     console.log('code: ', code)
-    //     window.location.href = KAKAO_AUTH_URL
-
     return (
         <>
             <div className="flex flex-col items-center gap-5">
                 <div className="text-28 font-bold">PLAYGROUND 로그인</div>
-                <div className="flex flex-col gap-5 max-w-full">
+                <div className="flex flex-col gap-5 w-full">
                     <InputComponent
                         change={emailChange}
                         value={email}
@@ -128,26 +105,8 @@ const LoginPage = () => {
                     ></InputComponent>
                     <div className="text-error">{loginError?.login ? <p>{loginError?.login}</p> : ''}</div>
                     <ButtonComponent ment="로그인" click={loginHandler}></ButtonComponent>
-                    <div className="flex flex-row justify-center gap-6">
-                        <div className="cursor-pointer">아이디/비밀번호 찾기</div>
-                        <div
-                            className="cursor-pointer"
-                            onClick={() => {
-                                navigate('/login/regist-page');
-                            }}
-                        >
-                            회원가입
-                        </div>
-                    </div>
-                    <ButtonComponent ment="구글로그인" click={() => googleLogin()}></ButtonComponent>
-                    {/* <div className="cursor-pointer" onClick={kakaoLoginHandler}>
-                        <KakaoLogin
-                            token={kakaoClientId}
-                            onSuccess={kakaoOnSuccess}
-                            onFail={kakaoOnFailure}
-                        />
-                        <img src="../public/kakao-login.svg" alt="" />
-                    </div> */}
+                    <ButtonComponent ment="회원가입" click={() => navigate('/login/regist-page')}></ButtonComponent>
+                    {/* <ButtonComponent ment="구글로그인" click={() => googleLogin()}></ButtonComponent> */}
                 </div>
             </div>
         </>

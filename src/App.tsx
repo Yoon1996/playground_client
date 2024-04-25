@@ -69,18 +69,25 @@ function App() {
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<Navigate replace to="/gyms" />}></Route>
-                        <Route
-                            path="/"
-                            element={
-                                <AuthGuardComponent>
-                                    <MainTemplate></MainTemplate>
-                                </AuthGuardComponent>
-                            }
-                        >
+                        <Route path="/" element={<MainTemplate></MainTemplate>}>
                             <Route path="gyms" element={<MainPage></MainPage>}></Route>
                             <Route path="gyms_detail" element={<MainDetailPage></MainDetailPage>}></Route>
-                            <Route path="gyms_reserve" element={<ReservationPage></ReservationPage>}></Route>
-                            <Route path="my_schedule" element={<MySchedulePage></MySchedulePage>}></Route>
+                            <Route
+                                path="gyms_reserve"
+                                element={
+                                    <AuthGuardComponent>
+                                        <ReservationPage></ReservationPage>
+                                    </AuthGuardComponent>
+                                }
+                            ></Route>
+                            <Route
+                                path="my_schedule"
+                                element={
+                                    <AuthGuardComponent>
+                                        <MySchedulePage></MySchedulePage>
+                                    </AuthGuardComponent>
+                                }
+                            ></Route>
                         </Route>
                         <Route path="/login" element={<LoginTemplate></LoginTemplate>}>
                             <Route path="login-page" element={<LoginPage></LoginPage>}></Route>

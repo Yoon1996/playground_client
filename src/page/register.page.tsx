@@ -158,7 +158,7 @@ const RegisterPage = () => {
                             value={rePw}
                             change={rePwChange}
                             type="password"
-                            placeholder="비밀번호를 한 번 더 입력해주세요."
+                            placeholder="비밀번호를 한번더 입력해주세요."
                         ></InputComponent>
                         <div className="text-error">{pwError?.password ? <p>{pwError?.password}</p> : ''}</div>
                     </div>
